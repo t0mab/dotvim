@@ -1,16 +1,12 @@
 [submodule "bundle/nerdtree"]
-        path = bundle/nerdtree
-            url = git://github.com/scrooloose/nerdtree.git
-
+	path = bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
 [submodule "bundle/jedi-vim"]
-        path = bundle/jedi-vim
-            url = git://github.com/davidhalter/jedi-vim.git
-
+	path = bundle/jedi-vim
+	url = git://github.com/davidhalter/jedi-vim.git
 [submodule "bundle/syntastic"]
-        path = bundle/syntastic
-            url = git://github.com/scrooloose/syntastic
-
+	path = bundle/syntastic
+	url = git://github.com/scrooloose/syntastic
 [submodule "bundle/vim-airline"]
-        path = bundle/vim-airline
-            url = git://github.com/bling/vim-airline
-
+	path = bundle/vim-airline
+	url = git://github.com/bling/vim-airline
