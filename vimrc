@@ -110,3 +110,44 @@ let g:airline#extensions#tabline#enabled = 1
 "jedi
 let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 1
+" sudo write
+ca w!! w !sudo tee >/dev/null "%"
+
+" case-insensitive search
+set ignorecase smartcase
+
+" INDENTING
+" autoindent = same as previous line
+" smartindent = tries to understand C
+" cindent = smarter
+"Set F2 to disable autoindenting if pasting into terminal in X (aka don't mess with my indents)
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" set visual bell
+set vb
+
+" visible white space
+set listchars=tab:>-,trail:.,eol:$
+
+"set ai                  " auto indenting
+set history=100         " keep 100 lines of history
+set ruler               " show the cursor position
+set hlsearch            " highlight the last searched term
+set matchpairs+=<:>     "Allow % to bounce between angles too
+filetype plugin on      " use the file type plugins
+
+" Toggle line numbers and fold column for easy copying
+nnoremap <F4> :set nonumber!<CR>:set foldcolumn=0<CR>
+
+" Save all temporary files in a central directory. Very useful.
+set backup
+set backupdir=~/.vim-tmp
+set directory=~/.vim-tmp
+
+" Proper indentation for HTML
+autocmd BufNewFile,BufRead *.coffee set tabstop=2
+autocmd BufNewFile,BufRead *.coffee set softtabstop=2
+autocmd BufNewFile,BufRead *.coffee set shiftwidth=2
+autocmd BufNewFile,BufRead *.coffee set expandtab
+
