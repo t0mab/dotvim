@@ -1,60 +1,143 @@
 "Vim configuration file
 
-"load pathogen
-execute pathogen#infect()
+"NeoBundle Scripts-----------------------------
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
 
-"Nerdtree on CTRL+N
-map <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeDirArrows=0
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-"no vi compatibility
-set nocompatible
-
-" load indent plugin
-if has("autocmd")
- filetype plugin on
- filetype plugin indent on
+  " Required:
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-" syntax options
-syntax on
-set hlsearch
-set incsearch
-set ignorecase
-set showmatch
+" Required:
+call neobundle#begin(expand('~/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Add or remove your Bundles here:
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'Valloric/YouCompleteMe', {
+     \ 'build'      : {
+        \ 'mac'     : './install.sh --clang-completer',
+        \ 'unix'    : './install.sh --clang-completer',
+        \ 'windows' : './install.sh --clang-completer',
+        \ 'cygwin'  : './install.sh --clang-completer'
+        \ }
+     \ }
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'stephpy/vim-yaml'
+
+
+
+
+" You can specify revision/branch/tag.
+" NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+" Required:
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+"End NeoBundle Scripts-------------------------
+
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Encoding UTF8
+set encoding=utf-8
+
+" Disable stupid backup and swap files - they trigger too many events
+" for file system watchers
+
+set nobackup
+set nowritebackup
 set noswapfile
-set tabstop=4
+
+" Buffers
+let mapleader = ','
+nnoremap <Leader><Leader> :bnext<CR>
+nnoremap ;; :bprevious<CR>
+
+" Backspace
+set backspace=indent,eol,start
+
+
+" Auto indent
+set autoindent
+
+" tab management
+set expandtab
 set shiftwidth=4
 set softtabstop=4
-set expandtab
-set autoindent
-set backspace=indent,eol,start
-set history=100
-set ruler
-set showcmd
-set number
-set nospell
-colorscheme delek
+set tabstop=8
+set scrolloff=999
+set wildmenu
 
-"new tab on CTRL+T
+" Settings for ctrlp
+let g:ctrlp_max_height = 30
+
+" Ignore some files
+set wildignore+=*.o,*.obj,*.pyc,*.DS_STORE,*.swc,*.bak,_build/,.coverage/
+
+" Indicates a fast terminal connection
+set ttyfast
+
+" Autodetect FileType
+filetype on
+filetype plugin indent on
+
+" Showing line numbers and length
+set number  " show line numbers
+set tw=79   " width of document (used by gd)
+set nowrap  " don't automatically wrap on load
+set fo-=t   " don't automatically wrap text when typing
+set colorcolumn=80
+highlight ColorColumn ctermbg=233
+
+
+" Highlight matching brackets
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+syntax on
+set t_Co=256
+let g:airline_powerline_fonts=1
+let g:loaded_autocomplete=1
+color wombat256mod
+
+
+" New tab on CTRL+T
 map <C-t> :tabnew<CR>
 
-"Completion javascript
+" Js autocomplete
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-"Completion html
+" Html autocomplete
 au FileType html set omnifunc=htmlcomplete#CompleteTags
-"Completion css
+" Css autocomplete
 au FileType css set omnifunc=csscomplete#CompleteCSS
-"Completion python with jedi-vim
+" Python autocomplete
 au FileType python set omnifunc=pythoncomplete#Complete
 
-" Longueur maximale des lignes
-" Pour Python
+" Python code line max size
 autocmd Filetype python set textwidth=79
 autocmd Filetype python set cc=+1
 
-"Completion on ctrl+space
+" Completion on ctrl+space
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
             \ "\<lt>C-n>" :
             \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
@@ -65,15 +148,15 @@ imap <C-@> <C-Space>
 " Remove all blank on all end line
 "autocmd BufWrite *.py silent! %s/[\r \t]\+$//
 
-" lauch pyton script with F5
+"  F5 -> launch python script
 map <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
 
-" Django completion
+" Django autocomplete
 function! SetAutoDjangoCompletion()
     let l:tmpPath = split($PWD, '/')
     let l:djangoVar = tmpPath[len(tmpPath)-1].'.settings'
     let $DJANGO_SETTINGS_MODULE=djangoVar
-    echo 'Activation de la complétion Django avec : '.djangoVar
+    echo 'Activate Django autocomplete with : '.djangoVar
         return 1
 endfunction
 map <F9> :call SetAutoDjangoCompletion()<CR>
@@ -92,13 +175,64 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 
-" template for new python file
+" Template for new python file
 autocmd BufNewFile *.py,*.pyw 0read ~/.vim/templates/python.txt
+
+" Python unit test
+nmap <silent><Leader>tf <Esc>:Pytest file<CR>
+nmap <silent><Leader>tc <Esc>:Pytest class<CR>
+nmap <silent><Leader>tm <Esc>:Pytest method<CR>
+
+" Fugitive bar
+set laststatus=2
+
+" Function to show msg in inverse mode
+function! s:DisplayStatus(msg)
+    echohl Todo
+    echo a:msg
+    echohl None
+endfunction
+
+" mouse management env var
+let s:mouseActivation = 1
+
+" Toggle mouse management
+function! ToggleMouseActivation()
+    if (s:mouseActivation)
+        let s:mouseActivation = 0
+        set mouse=c
+        set paste
+        set bs=2
+        call s:DisplayStatus('mouse [off]')
+    else
+        let s:mouseActivation = 1
+        set mouse=a
+        set nopaste
+        set bs=2
+        call s:DisplayStatus('mouse [on]')
+    endif
+endfunction
+
+" Activate mouse on startup
+set mouse=a
+set nopaste
+set bs=2
+
+
+" Clean files:
+"   - swap tab to space
+"   - remove ^M
+function! CleanCode()
+    %retab
+    %s/^M//g
+    call s:DisplayStatus('CleanCode done !')
+endfunction
+
 
 " gui font
 if has('gui_running')
     set guifont=Monospace\ 12
-    colorscheme desert
+    colorscheme delek
 endif
 
 "airline
@@ -107,9 +241,10 @@ set t_Co=256
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 
-"jedi
-let g:jedi#auto_initialization = 1
-let g:jedi#auto_vim_configuration = 1
+" Enhance search
+map * <Esc>:exe '2match Search /' . expand('<cWORD>') . '/'<CR><Esc>:exe '/' . expand('<cWORD>') . '/'<CR>
+map ù <Esc>:exe '2match Search /' . expand('<cWORD>') . '/'<CR><Esc>:exe '?' . expand('<cWORD>') . '?'<CR>
+
 " sudo write
 ca w!! w !sudo tee >/dev/null "%"
 
@@ -135,7 +270,7 @@ set history=100         " keep 100 lines of history
 set ruler               " show the cursor position
 set hlsearch            " highlight the last searched term
 set matchpairs+=<:>     "Allow % to bounce between angles too
-filetype plugin on      " use the file type plugins
+
 
 " Toggle line numbers and fold column for easy copying
 nnoremap <F4> :set nonumber!<CR>:set foldcolumn=0<CR>
@@ -145,11 +280,27 @@ set backup
 set backupdir=~/.vim-tmp
 set directory=~/.vim-tmp
 
+
+" Fix filetype for Django template files
+autocmd BufNewFile,BufRead *.html set filetype=htmldjango.html
+
+" Fix filetype for CoffeeScript files
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+
 " Proper indentation for HTML
 autocmd BufNewFile,BufRead *.coffee set tabstop=2
 autocmd BufNewFile,BufRead *.coffee set softtabstop=2
 autocmd BufNewFile,BufRead *.coffee set shiftwidth=2
 autocmd BufNewFile,BufRead *.coffee set expandtab
+
+" Automatically run CoffeeCompile watch vertical on CoffeeScript files
+"autocmd BufNewFile,BufRead *.coffee :CoffeeCompile watch vertical
+
+" Proper indentation for HTML
+autocmd BufNewFile,BufRead *.html set tabstop=2
+autocmd BufNewFile,BufRead *.html set softtabstop=2
+autocmd BufNewFile,BufRead *.html set shiftwidth=2
+autocmd BufNewFile,BufRead *.html set expandtab
 
 " Needs to set term when running tmux
 if exists('$TMUX')
@@ -158,7 +309,7 @@ endif
 
 " On iterm fix update cursor
 if exists('$ITERM_PROFILE')
-  if exists('$TMUX') 
+  if exists('$TMUX')
     let &t_SI = "\<Esc>[3 q"
     let &t_EI = "\<Esc>[0 q"
   else
@@ -191,3 +342,33 @@ function! XTermPasteBegin()
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
