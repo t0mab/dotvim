@@ -67,6 +67,12 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" Don’t show the intro message when starting Vim
+set shortmess=atI
+
+
+
+
 " Buffers
 let mapleader = ','
 nnoremap <Leader><Leader> :bnext<CR>
@@ -74,7 +80,6 @@ nnoremap ;; :bprevious<CR>
 
 " Backspace
 set backspace=indent,eol,start
-
 
 " Auto indent
 set autoindent
@@ -85,6 +90,8 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=8
 set scrolloff=999
+
+" Enhance command-line completion
 set wildmenu
 
 " Settings for ctrlp
@@ -108,6 +115,17 @@ set fo-=t   " don't automatically wrap text when typing
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
+" Don’t show the intro message when starting Vim
+set shortmess=atI
+
+" Show the current mode
+set showmode
+
+" Show the filename in the window titlebar
+set title
+
+" Show “invisible” characters
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 
 " Highlight matching brackets
 set showmatch
@@ -250,6 +268,17 @@ ca w!! w !sudo tee >/dev/null "%"
 
 " case-insensitive search
 set ignorecase smartcase
+
+" Disable error bells
+set noerrorbells
+
+" Don’t reset cursor to start of line when moving around.
+set nostartofline
+
+" Persistent Undo, Vim remembers everything even after the file is closed.
+set undofile
+set undolevels=500
+set undoreload=500
 
 " INDENTING
 " autoindent = same as previous line
