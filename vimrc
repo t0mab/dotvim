@@ -417,7 +417,15 @@ nnoremap <BS> gg
 map q: :q
 
 " vim-airline
-let g:airline_theme='powerlineish'
+let g:airline_theme='wombat'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_z=''
+set rtp+=~/.vim/airline
+set completeopt-=preview
+set laststatus=2
+set noshowmode
+set ttimeoutlen=50
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_powerline_fonts=1
