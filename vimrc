@@ -36,9 +36,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'stephpy/vim-yaml'
-
-
-
+NeoBundle 'terryma/vim-expand-region'
 
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -69,9 +67,6 @@ set noswapfile
 
 " Don’t show the intro message when starting Vim
 set shortmess=atI
-
-
-
 
 " Buffers
 let mapleader = ','
@@ -308,7 +303,7 @@ nnoremap <F4> :set nonumber!<CR>:set foldcolumn=0<CR>
 set backup
 set backupdir=~/.vim-tmp
 set directory=~/.vim-tmp
-
+set undodir=~/.vim-tmp/undo
 
 " Fix filetype for Django template files
 autocmd BufNewFile,BufRead *.html set filetype=htmldjango.html
@@ -401,3 +396,28 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
+
+" vim-expand-region
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" Auto move to end of text pasted
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+" enter = end of file
+nnoremap <CR> G
+
+" backspace = beginning of file
+nnoremap <BS> gg
+
+" bad keystroke 
+map q: :q
+
+" vim-airline
+let g:airline_theme='powerlineish'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_z=''
