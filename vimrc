@@ -416,6 +416,9 @@ nnoremap <BS> gg
 " bad keystroke 
 map q: :q
 
+" fast tty
+set ttyfast
+
 " vim-airline
 let g:airline_theme='wombat'
 let g:airline_left_sep=''
