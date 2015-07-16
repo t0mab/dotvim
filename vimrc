@@ -37,6 +37,13 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'stephpy/vim-yaml'
 NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'keith/tmux.vim'
+NeoBundle 'StanAngeloff/php.vim'
+NeoBundle 'othree/html5.vim.git'
+NeoBundle 'junegunn/goyo.vim'
+NeoBundle 'tpope/vim-vinegar.git'
 
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -67,6 +74,11 @@ set noswapfile
 
 " Don’t show the intro message when starting Vim
 set shortmess=atI
+
+set dictionary=/usr/share/dict/words
+
+" Show partially typed commands at the bottom
+set showcmd
 
 " Buffers
 let mapleader = ','
@@ -247,6 +259,24 @@ if has('gui_running')
     set guifont=Monospace\ 12
     colorscheme delek
 endif
+
+" Colorscheme settings
+"if has("unix")
+"  let s:uname = system("uname")
+"  if s:uname == "Darwin\n"
+"    " Settings for iTerm2 on OS X
+"    set background=dark
+"    let base16colorspace=256
+"    colorscheme base16-ocean
+"  else
+"    " Settings for Terminator on Linux
+"    let g:molokai_original=1
+"    let g:rehash256=1
+"    colorscheme molokai
+"    "Transparent background
+"    hi Normal guibg=NONE ctermbg=NONE
+"  endif
+"endif
 
 "airline
 let g:airline_powerline_fonts = 1
@@ -432,3 +462,72 @@ set ttimeoutlen=50
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts=1
+
+" Forces *.md as markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Wrap text only in markdown files
+autocmd BufNewFile,BufRead *.md setlocal wrap
+autocmd FileType markdown setlocal wrap
+set linebreak " Do not amputate words
+
+" Underline current line
+nnoremap <Leader>u :Underline<CR>
+
+" Copy/paste to system clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>yy "+yy
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" Toggle/untoggle spell checking
+nnoremap <leader>ss :setlocal spell!<cr>
+
+" Visual mode pressing * or # searches for the current selection
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+noremap <space> /
+noremap <c-space> ?
+
+" Pipe buffer content in system clipboard
+noremap <leader>c :w !pbcopy<CR>
+
+function! s:Underline(chars)
+  let chars = empty(a:chars) ? '-' : a:chars
+  let nr_columns = virtcol('$') - 1
+  let uline = repeat(chars, (nr_columns / len(chars)) + 1)
+  put =strpart(uline, 0, nr_columns)
+endfunction
+command! -nargs=? Underline call s:Underline(<q-args>)
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction 
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("Ag \"" . l:pattern . "\" " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
