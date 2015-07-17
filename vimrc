@@ -44,7 +44,12 @@ NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'othree/html5.vim.git'
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'tpope/vim-vinegar.git'
-
+NeoBundle 'garbas/vim-snipmate.git'
+NeoBundle 'honza/vim-snippets.git'
+NeoBundle 'MarcWeber/vim-addon-mw-utils.git'
+NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle 'tomtom/tlib_vim.git'
+NeoBundle 'kien/ctrlp.vim'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
