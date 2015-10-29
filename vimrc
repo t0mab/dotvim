@@ -1,4 +1,4 @@
-"Vim configuration file
+"Vim ttconfiguration file
 
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
@@ -50,6 +50,18 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils.git'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'tomtom/tlib_vim.git'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'PotatoesMaster/i3-vim-syntax.git'
+NeoBundle 'tmux-plugins/vim-tmux'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'Colorizer'
+NeoBundle 'ScrollColors'
+" Colorschemes
+NeoBundle 'morhetz/gruvbox'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'NLKNguyen/papercolor-theme'
+NeoBundle 'chriskempson/base16-vim'
+NeoBundle 't0mab/pydiploy-vim'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
@@ -209,9 +221,9 @@ EOF
 autocmd BufNewFile *.py,*.pyw 0read ~/.vim/templates/python.txt
 
 " Python unit test
-nmap <silent><Leader>tf <Esc>:Pytest file<CR>
-nmap <silent><Leader>tc <Esc>:Pytest class<CR>
-nmap <silent><Leader>tm <Esc>:Pytest method<CR>
+nmap <silent><Leader>ptf <Esc>:Pytest file<CR>
+nmap <silent><Leader>ptc <Esc>:Pytest class<CR>
+nmap <silent><Leader>ptm <Esc>:Pytest method<CR>
 
 " Fugitive bar
 set laststatus=2
@@ -360,6 +372,22 @@ autocmd BufNewFile,BufRead *.html set tabstop=2
 autocmd BufNewFile,BufRead *.html set softtabstop=2
 autocmd BufNewFile,BufRead *.html set shiftwidth=2
 autocmd BufNewFile,BufRead *.html set expandtab
+
+" Proper indentation for Shell scripts
+autocmd FileType sh set tabstop=4
+autocmd FileType sh set softtabstop=4
+autocmd FileType sh set shiftwidth=4
+autocmd FileType sh set expandtab
+
+" Proper indentation for Python
+autocmd FileType python set tabstop=4
+autocmd FileType python set softtabstop=4
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set expandtab
+
+" Mutt
+au BufRead ~/.mutt/tmp/mutt-* set tw=72
+
 
 " Needs to set term when running tmux
 if exists('$TMUX')
@@ -540,3 +568,16 @@ endfunction
 " spellchecker
 highlight SpellBad term=underline cterm=underline ctermbg=Black
 set spelllang=fr
+
+"Template Vars
+let g:username = 'T0ma'
+let g:email = 'baguet@unistra.fr'
+let g:licence = 'Beerware'
+
+"Git commit msg
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/bundle/vim-yaml/after/syntax/yaml.vim
+
+"Clean code with F3
+map <F3> <Esc>:call CleanCode()<CR>
