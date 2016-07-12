@@ -39,6 +39,7 @@ NeoBundle 'stephpy/vim-yaml'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'maksimr/vim-jsbeautify'
 NeoBundle 'keith/tmux.vim'
 NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'othree/html5.vim.git'
@@ -56,11 +57,16 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'Colorizer'
 NeoBundle 'ScrollColors'
+NeoBundle 'KabbAmine/zeavim.vim'
+NeoBundle 'michaeljsmith/vim-indent-object'
+NeoBundle 'alfredodeza/pytest.vim'
 " Colorschemes
 NeoBundle 'morhetz/gruvbox'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'NLKNguyen/papercolor-theme'
 NeoBundle 'chriskempson/base16-vim'
+" Misc
+NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 't0mab/pydiploy-vim'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -203,6 +209,16 @@ function! SetAutoDjangoCompletion()
 endfunction
 map <F9> :call SetAutoDjangoCompletion()<CR>
 
+" Simple re-format for minified Javascript
+command! UnMinify call UnMinify()
+function! UnMinify()
+    %s/{\ze[^\r\n]/{\r/g
+    %s/){/) {/g
+    %s/};\?\ze[^\r\n]/\0\r/g
+    %s/;\ze[^\r\n]/;\r/g
+    %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
+    normal ggVG=
+endfunction
 
 " Virtual env library completion
 py << EOF
@@ -386,7 +402,7 @@ autocmd FileType python set shiftwidth=4
 autocmd FileType python set expandtab
 
 " Mutt
-au BufRead ~/.mutt/tmp/mutt-* set tw=72
+au BufRead ~/.config/mutt/tmp/mutt-* set tw=72
 
 
 " Needs to set term when running tmux
@@ -581,3 +597,27 @@ au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/bundle/vim-yaml/after/syntax/yaml.v
 
 "Clean code with F3
 map <F3> <Esc>:call CleanCode()<CR>
+
+" Easymotion config
+
+map <Leader> <Plug>(easymotion-prefix)
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-s)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+" Keep cursor column when JK motion
+let g:EasyMotion_startofline = 0 
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+         \ if line("'\"") > 0 && line("'\"") <= line("$") |
+         \   exe "normal! g`\"" |
+         \ endif
+" Remember info about open buffers on close
+set viminfo^=%
