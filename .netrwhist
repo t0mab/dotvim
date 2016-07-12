@@ -1,8 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/etc/udev/rules.d'
-let g:netrw_dirhist_2='/home/toma/.vim/syntax'
-let g:netrw_dirhist_3='/home/toma/.config/mutt/.git'
-let g:netrw_dirhist_4='/home/toma/.todo'
-let g:netrw_dirhist_5='/home/toma'
-let g:netrw_dirhist_6='/home/toma/Dev/php/jelix/agadir/fabfile'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/toma/tmp/vagrant'
+let g:netrw_dirhist_2='/home/toma/Dev/python/triky/triky'
+let g:netrw_dirhist_3='/home/toma/Dev/python/triky/sql/dict'
+let g:netrw_dirhist_4='/home/toma/Dev/php/jelix/agadir-rectorat/agadir/misc'

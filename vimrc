@@ -584,6 +584,7 @@ endfunction
 " spellchecker
 highlight SpellBad term=underline cterm=underline ctermbg=Black
 set spelllang=fr
+autocmd FileType mail set spell
 
 "Template Vars
 let g:username = 'T0ma'
