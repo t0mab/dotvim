@@ -68,6 +68,7 @@ NeoBundle 'chriskempson/base16-vim'
 " Misc
 NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 't0mab/pydiploy-vim'
+NeoBundle 'klen/python-mode'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
