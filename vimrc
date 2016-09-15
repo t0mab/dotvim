@@ -69,6 +69,9 @@ NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 't0mab/pydiploy-vim'
 NeoBundle 'klen/python-mode'
+NeoBundle 'fisadev/vim-isort'
+NeoBundle 'xolox/vim-notes'
+NeoBundle 'xolox/vim-misc'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
@@ -623,3 +626,9 @@ autocmd BufReadPost *
          \ endif
 " Remember info about open buffers on close
 set viminfo^=%
+" Use python isort for module import sorting 
+" let g:vim_isort_map = '<C-i>'
+
+" Notes plugin path
+let g:notes_directories = ['~/Dropbox/Notes']
+
