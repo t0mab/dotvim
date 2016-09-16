@@ -94,7 +94,6 @@ set encoding=utf-8
 
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
-
 set nobackup
 set nowritebackup
 set noswapfile
@@ -171,7 +170,6 @@ set t_Co=256
 let g:airline_powerline_fonts=1
 let g:loaded_autocomplete=1
 color wombat256mod
-
 
 " New tab on CTRL+T
 map <C-t> :tabnew<CR>
@@ -286,7 +284,7 @@ set bs=2
 "   - remove ^M
 function! CleanCode()
     %retab
-    %s/^M//g
+    %s///g
     call s:DisplayStatus('CleanCode done !')
 endfunction
 
@@ -362,7 +360,6 @@ set ruler               " show the cursor position
 set hlsearch            " highlight the last searched term
 set matchpairs+=<:>     "Allow % to bounce between angles too
 
-
 " Toggle line numbers and fold column for easy copying
 nnoremap <F4> :set nonumber!<CR>:set foldcolumn=0<CR>
 
@@ -427,7 +424,6 @@ end
 
 " for tmux to automatically set paste and nopaste mode at the time pasting (as
 " happens in VIM UI)
-
 function! WrapForTmux(s)
   if !exists('$TMUX')
     return a:s
@@ -481,7 +477,6 @@ let g:tagbar_type_go = {
 \ }
 
 " vim-expand-region
-
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
@@ -626,9 +621,14 @@ autocmd BufReadPost *
          \ endif
 " Remember info about open buffers on close
 set viminfo^=%
+
 " Use python isort for module import sorting 
 " let g:vim_isort_map = '<C-i>'
 
 " Notes plugin path
 let g:notes_directories = ['~/Dropbox/Notes']
+
+" Pymode
+let g:pymode_trim_whitespaces = 1
+let g:pymode_folding = 0 
 
