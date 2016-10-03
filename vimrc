@@ -531,6 +531,10 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
+" Use system clipboard
+set clipboard^=unnamedplus,unnamed
+
+
 " Toggle/untoggle spell checking
 nnoremap <leader>ss :setlocal spell!<cr>
 
