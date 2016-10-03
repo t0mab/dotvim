@@ -636,3 +636,6 @@ let g:notes_directories = ['~/Dropbox/Notes']
 let g:pymode_trim_whitespaces = 1
 let g:pymode_folding = 0 
 
+" Remove trailling spaces
+autocmd BufWritePre *.py,*.js,*.hs,*.rs,*.html,*.css,*.scss :%s/\s\+$//e
+
