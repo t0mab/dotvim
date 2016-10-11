@@ -72,6 +72,7 @@ NeoBundle 'klen/python-mode'
 NeoBundle 'fisadev/vim-isort'
 NeoBundle 'xolox/vim-notes'
 NeoBundle 'xolox/vim-misc'
+NeoBundle 'vim-scripts/apachestyle'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
