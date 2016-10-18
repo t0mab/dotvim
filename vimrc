@@ -24,6 +24,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build'      : {
