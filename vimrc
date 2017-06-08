@@ -76,6 +76,9 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'vim-scripts/apachestyle'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'eiro/vim-jsls'
+NeoBundle 'junegunn/fzf'
+NeoBundle 'morganp/vim-projector'
+NeoBundle 'pearofducks/ansible-vim'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
@@ -354,15 +357,17 @@ set pastetoggle=<F2>
 
 " set visual bell
 set vb
-
-" visible white space
+"visible white space
 set listchars=tab:>-,trail:.,eol:$
-
-"set ai                  " auto indenting
+"set list,listchars=nbsp:º;tail:,tab:>-
+"set ai                 " auto indenting
 set history=100         " keep 100 lines of history
 set ruler               " show the cursor position
-set hlsearch            " highlight the last searched term
+set hlsearch incsearch  " highlight the last searched term
 set matchpairs+=<:>     "Allow % to bounce between angles too
+
+"easy magic mode for regex
+nnoremap / /\v
 
 " Toggle line numbers and fold column for easy copying
 nnoremap <F4> :set nonumber!<CR>:set foldcolumn=0<CR>
@@ -537,7 +542,6 @@ vmap <Leader>P "+P
 
 " Use system clipboard
 set clipboard^=unnamedplus,unnamed
-
 
 " Toggle/untoggle spell checking
 nnoremap <leader>ss :setlocal spell!<cr>
