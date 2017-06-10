@@ -19,7 +19,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
 NeoBundle 'tpope/vim-commentary'
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'flazz/vim-colorschemes'
@@ -51,7 +51,6 @@ NeoBundle 'honza/vim-snippets.git'
 NeoBundle 'MarcWeber/vim-addon-mw-utils.git'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'tomtom/tlib_vim.git'
-NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'PotatoesMaster/i3-vim-syntax.git'
 NeoBundle 'tmux-plugins/vim-tmux'
 NeoBundle 'tpope/vim-endwise'
@@ -74,7 +73,6 @@ NeoBundle 'fisadev/vim-isort'
 NeoBundle 'xolox/vim-notes'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'vim-scripts/apachestyle'
-NeoBundle 'gregsexton/gitv'
 NeoBundle 'eiro/vim-jsls'
 NeoBundle 'junegunn/fzf'
 NeoBundle 'morganp/vim-projector'
@@ -647,3 +645,11 @@ let g:pymode_folding = 0
 " Remove trailling spaces
 autocmd BufWritePre *.py,*.js,*.hs,*.rs,*.html,*.css,*.scss :%s/\s\+$//e
 
+" statusline mod
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
