@@ -77,6 +77,7 @@ NeoBundle 'eiro/vim-jsls'
 NeoBundle 'junegunn/fzf'
 NeoBundle 'morganp/vim-projector'
 NeoBundle 'pearofducks/ansible-vim'
+NeoBundle 'tpope/vim-obsession'
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
@@ -498,7 +499,7 @@ nnoremap <CR> G
 " backspace = beginning of file
 nnoremap <BS> gg
 
-" bad keystroke 
+" bad keystroke
 map q: :q
 
 " fast tty
@@ -567,7 +568,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -622,7 +623,7 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
 " Keep cursor column when JK motion
-let g:EasyMotion_startofline = 0 
+let g:EasyMotion_startofline = 0
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -632,7 +633,7 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
-" Use python isort for module import sorting 
+" Use python isort for module import sorting
 " let g:vim_isort_map = '<C-i>'
 
 " Notes plugin path
@@ -640,7 +641,7 @@ let g:notes_directories = ['~/Dropbox/Notes']
 
 " Pymode
 let g:pymode_trim_whitespaces = 1
-let g:pymode_folding = 0 
+let g:pymode_folding = 0
 
 " Remove trailling spaces
 autocmd BufWritePre *.py,*.js,*.hs,*.rs,*.html,*.css,*.scss :%s/\s\+$//e
@@ -651,5 +652,17 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs=1
+let g:syntastic_enable_balloons = 1
+
+let g:syntastic_error_symbol = "❌"
+let g:syntastic_warning_symbol = "⚠️"
+
+highlight SyntasticErrorSign guifg=white
+highlight SyntasticWarningSign guifg=white
+
+" Toggle syntastic on/off
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <F6> :SyntasticCheck<CR>
